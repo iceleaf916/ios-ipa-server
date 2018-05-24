@@ -73,12 +73,8 @@ function before(obj, method, fn) {
 }
 
 function main() {
-  var downloadURL = 'https://' + ipAddress + ':' + port + '/download';
+  var downloadURL = 'http://' + ipAddress + ':' + port + '/download';
   var cerURL = 'http://' + ipAddress + ':' + port2 + '/cer';
-  qrcode.generate(cerURL);
-  console.log('Install CA certification on iOS 11 ' + cerURL);
-  console.log('\n');
-  qrcode.generate(downloadURL);
   console.log('Open download page ' + downloadURL);
   var destinationPath = program.args.shift() || '.';
   var ipasDir = destinationPath;
@@ -96,8 +92,6 @@ function main() {
   }
 
   var options = {
-    key: key,
-    cert: cert
   };
 
   var app = express();
@@ -186,7 +180,8 @@ function main() {
     })
   });
 
-  https.createServer(options, app).listen(port);
+  app.listen(port);
+  //https.createServer(options, app).listen(port);
 
 }
 
